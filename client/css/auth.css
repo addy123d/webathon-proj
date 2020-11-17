@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.registerPage,
+.loginPage {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/images/reg-1.jpg");
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.loginPage {
+    display: none;
+}
+
+.registerPage.active {
+    display: none;
+}
+
+.loginPage.active {
+    display: block;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form {
+    margin: 7%;
+    background: #ffffff;
+    padding: 2em 4em 2em 4em;
+    border-radius: 10px;
+}
+
+.form h2 {
+    margin-bottom: 10%;
+    /* border-left: 5px solid #1c1d1e; */
+    padding: 1px 7px;
+    /* text-transform: uppercase; */
+}
+
+.form>form div {
+    margin-bottom: 10%;
+}
+
+input {
+    padding: 1em 1.2em 1em 1.2em;
+    outline: none;
+    font-family: 'Josefin sans', sans-serif;
+    font-weight: 200;
+}
+
+.button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.button button {
+    margin-top: 3%;
+    padding: .6em 1.5em .6em 1.5em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    text-transform: uppercase;
+    background: #2b75ff;
+    background: #ff3a43;
+    color: #ffffff;
+    text-shadow: 1px 1px 1px #000000;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+.button #switchBtn,
+.button #switchBtn_register {
+    background: #1f1f1f;
+}
+
+.button #switchBtn:hover {
+    transition: all .3s;
+    background: #494949;
+}
+
+.button button:hover {
+    transition: all .3s;
+    background: #3562b6;
+    background: #db1b25;
+}

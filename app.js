@@ -58,7 +58,21 @@ app.use(express.urlencoded({
 }));
 
 // Routes
+app.use("/",express.static(__dirname + "/client"));
 app.use("/auth",auth);
 app.use("/subscription",subscription);
+
+//@type - GET
+//@access - Private
+//@route - /logout
+app.get("/logout",redirectLogin,(request,response)=>{
+    request.session.destroy(function(error){
+        if(error){
+            response.redirect("/subscription");
+        }else{
+            response.redirect("/");
+        }
+    })
+});
 
 module.exports = app;
