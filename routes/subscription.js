@@ -131,7 +131,8 @@ router.post("/",(request,response)=>{
     const {ID} = request.session;
 
     // For generating expiry dates from durations and dates of respective subscription !
-    const ottexpiry = generateExpiry(ottdate,ottduration);
+    let type = "array";
+    const ottexpiry = generateExpiry(ottdate,ottduration,type);
 
     const details = {
         userId : ID,
@@ -149,9 +150,7 @@ router.post("/",(request,response)=>{
     new Subscription(details).save()
     .then(()=>{
         console.log("Subscription details saved !");
-        response.json({
-            "success" : "Details saved !"
-        });
+        response.redirect("/subscription/add");
     })
     .catch(err=>console.log("Error :",err));
         
@@ -163,7 +162,7 @@ router.post("/",(request,response)=>{
 
 router.get("/add",redirectLogin,deleteSubscription,(request,response)=>{
 
-    const {ID} = request.session;
+    const {ID,Email} = request.session;
 
     Subscription.findOne({ userId : ID})
     .then((details)=>{
@@ -171,7 +170,7 @@ router.get("/add",redirectLogin,deleteSubscription,(request,response)=>{
             const result = calculate(details.plans,details.price,details.duration);
 
             // Mail section
-            if(result === "Alert"){
+            if(result[0] === "Alert"){
                 // Send email to user that his/her capacity exceeded !
                   User.findOne({ _id : ID})
                   .then((user)=>{
@@ -183,16 +182,18 @@ router.get("/add",redirectLogin,deleteSubscription,(request,response)=>{
                               });
                           }else{
                               console.log("Mail sent successfully !");
-                              next();
+           
                           }
                       })
                   })
                   .catch(err=>console.log(err));
             }
             
-            
+
             response.render("addsubscription",{
-                condition : result
+                condition : result[0],
+                email : Email,
+                amount : result[1]
             });
 
         }else{
@@ -213,7 +214,8 @@ router.post("/add",(request,response)=>{
     const {ID} = request.session;
 
     // For generating expiry dates from durations and dates of respective subscription !
-    const ottexpiry = generateExpiry(ottdate,ottduration);
+    let type = "single_value";
+    const ottexpiry = generateExpiry(ottdate,ottduration,type);
 
             Subscription.updateOne(
                 {
@@ -243,7 +245,7 @@ router.post("/add",(request,response)=>{
                               });
                           }else{
                               console.log("Mail sent successfully !");
-                              next();
+                              response.redirect("/subscription");
                           }
                       })
                   })

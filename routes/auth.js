@@ -83,9 +83,7 @@ router.post("/login",(request,response)=>{
                 request.session.Email = user.email;
                 request.session.ID = user._id;
 
-                response.json({
-                    "success" : "Login Successful !✅"
-                });
+                response.status(200).redirect("/subscription");
             }else{
                 response.json({
                     "failure" : "Password not matched !"
