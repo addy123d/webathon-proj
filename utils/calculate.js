@@ -8,16 +8,24 @@ const add = (prices)=>{
 }
 
 
-const calculate = (details,price)=>{
+const calculate = (details,price,duration)=>{
     const prices = details.price;
     const paying_capacity = price;
 
     const added_result = add(prices);
-
-    if(added_result > paying_capacity){
-        return "Alert";
+    if(duration === "Yearly"){
+        if(added_result > Number(paying_capacity/12)){
+            return "Alert";
+        }
+            return "Normal";
+    }else{
+        if(added_result > Number(paying_capacity)){
+            return "Alert";
+        }
+            return "Normal";  
     }
-        return "Normal";
+
+
 };
 
 module.exports = calculate;

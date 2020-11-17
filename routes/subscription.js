@@ -6,6 +6,9 @@ const {
 
 const generateExpiry = require("../utils/generateExpiry");
 
+// Import Mail function to send emails to user when their subscription gets expired automatically !
+const sendMail = require("../utils/mail");
+
 // Import Subscription model here !
 const Subscription = require("../models/Subscription");
 const User = require("../models/User");
@@ -32,6 +35,7 @@ const deleteSubscription = (request,response,next)=>{
 
                 let expiry_date = new Date(expiryDate[i]);
                 let now = new Date(); // Today's date
+                console.log("Expiry Dates :",expiryDate[i] + "Today :",today);
 
                 if(expiryDate[i] ===  today || expiry_date - now < 0){  //2nd condition is for past date
                     indexValue = i;
@@ -72,7 +76,23 @@ const deleteSubscription = (request,response,next)=>{
                 .then(()=>{
                     console.log("Subscription Deleted !");
 
-                    next();
+                    // Send email to user that his one of its subscription is expired !
+                    User.findOne({ _id : ID})
+                    .then((user)=>{
+                        let condition = "delete";
+                        sendMail(user.email,condition,(err)=>{
+                            if(err){
+                                response.json({
+                                    "err" : "Mail not sent !❌"
+                                });
+                            }else{
+                                console.log("Mail sent successfully !");
+                                next();
+                            }
+                        })
+                    })
+                    .catch(err=>console.log(err));
+                    // next();
                 })
                 .catch(err=>console.log("Error :",err));
 
@@ -148,9 +168,29 @@ router.get("/add",redirectLogin,deleteSubscription,(request,response)=>{
     Subscription.findOne({ userId : ID})
     .then((details)=>{
         if(details){
-            const result = calculate(details.plans,details.price);
+            const result = calculate(details.plans,details.price,details.duration);
+
+            // Mail section
+            if(result === "Alert"){
+                // Send email to user that his/her capacity exceeded !
+                  User.findOne({ _id : ID})
+                  .then((user)=>{
+                      let condition = "capacity";
+                      sendMail(user.email,condition,(err)=>{
+                          if(err){
+                              response.json({
+                                  "err" : "Mail not sent !❌"
+                              });
+                          }else{
+                              console.log("Mail sent successfully !");
+                              next();
+                          }
+                      })
+                  })
+                  .catch(err=>console.log(err));
+            }
             
-            //Add subscription when everything is under paying capacity !
+            
             response.render("addsubscription",{
                 condition : result
             });
@@ -191,6 +231,24 @@ router.post("/add",(request,response)=>{
             )
             .then(()=>{
                 console.log("OTT Added !");
+
+                  // Send email to user to notify that subscription successfully added !
+                  User.findOne({ _id : ID})
+                  .then((user)=>{
+                      let condition = "add";
+                      sendMail(user.email,condition,(err)=>{
+                          if(err){
+                              response.json({
+                                  "err" : "Mail not sent !❌"
+                              });
+                          }else{
+                              console.log("Mail sent successfully !");
+                              next();
+                          }
+                      })
+                  })
+                  .catch(err=>console.log(err));
+
             })
             .catch(err=>console.log("Error : ",err));
 });
