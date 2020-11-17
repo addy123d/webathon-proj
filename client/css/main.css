@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.main {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url("/images/bg-4.jpg");
+    /* background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("beach-4.jpg"); */
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.register,
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login {
+    top: 60%;
+}
+
+button {
+    padding: 1em 6em 1em 6em;
+    border-radius: 40px;
+    background: #ffffff;
+    outline: none;
+    border: 0;
+    background: #ff634e;
+    background: #ff222d;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.login button {
+    background: #ffffff;
+    color: #ff634e;
+    letter-spacing: 1px;
+}
+
+.login button:hover {
+    transition: all .3s;
+    background: #dfdfdf;
+}
+
+.login:hover~i {
+    transition: all .3s;
+    transform: scale(2);
+}
+
+.register button:hover {
+    transition: all .3s;
+    background: #fd4f38;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.title h2 {
+    margin-top: 10%;
+    color: rgb(255, 255, 255);
+    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Open Sans', sans-serif; */
+    font-family: 200;
+    letter-spacing: 2px;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 2px #1c1d1e;
+}
+
+.icon {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.icon i {
+    position: absolute;
+    left: 80%;
+    margin-top: 6%;
+}
+
+.register .icon i {
+    color: #ffffff;
+}
+
+.login .icon i {
+    color: #ff634e;
+}
+
+.fa-globe {
+    color: #ff634e;
+    color: #E50914;
+}
+
+@media (max-width: 562px) {
+    .title h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 432px) {
+    .title h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        padding: 1em 4.5em 1em 4.5em;
+    }
+
+    .icon i {
+        position: absolute;
+        left: 80%;
+        margin-top: 9%;
+    }
+}

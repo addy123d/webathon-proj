@@ -4,24 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register/Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/auth.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Josefin+Sans&display=swap"
+        rel="stylesheet">
+    <title>Authorisation</title>
 </head>
 
 <body>
-    <h2>Register</h2>
-    <form action="/auth/register" method="POST">
-        <input type="email" name="email" placeholder="Email ID" autocomplete="off">
-        <input type="number" name="contact" placeholder="Contact Number" autocomplete="off">
-        <input type="password" name="password" placeholder="Choose Password" autocomplete="off">
-        <button>Submit</button>
-    </form>
+    <section class="registerPage">
 
-    <h2>Login</h2>
-    <form action="/auth/login" method="POST">
-        <input type="email" name="email" placeholder="Email ID" autocomplete="off">
-        <input type="password" name="password" placeholder="Choose Password" autocomplete="off">
-        <button>Submit</button>
-    </form>
+        <div class="container">
+            <div class="form">
+                <h2>Register <i class="fa fa-user-plus" aria-hidden="true"></i></h2>
+                <form action="/auth/register" method="POST">
+                    <div class="name">
+                        <input type="email" name="email" id="Name" placeholder="Email ID📩" autocomplete="off">
+                    </div>
+                    <div class="contact">
+                        <input type="text" name="contact" id="Contact" placeholder="Contact No📞" autocomplete="off">
+                    </div>
+                    <div class="password">
+                        <input type="password" name="password" id="Password" placeholder="Enter Password"
+                            autocomplete="off">
+                    </div>
+                    <div class="button">
+                        <button id="submitBtn">Submit</button>
+                    </div>
+                </form>
+                <div class="button">
+                    <button id="switchBtn">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="loginPage">
+
+        <div class="container">
+            <div class="form">
+                <h2>Login <i class="fa fa-sign-in" aria-hidden="true"></i></h2>
+                <form action="/auth/login" method="POST">
+                    <div class="name">
+                        <input type="email" name="email" id="Name" placeholder="Email ID📩" autocomplete="off">
+                    </div>
+                    <div class="password">
+                        <input type="password" name="password" id="Password" placeholder="Enter Password"
+                            autocomplete="off">
+                    </div>
+                    <div class="button">
+                        <button id="submitBtn">Submit</button>
+                    </div>
+                </form>
+                <div class="button">
+                    <button id="switchBtn_register">Register <i class="fa fa-user-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
+<script src="/js/switch.js"></script>
 
 </html>

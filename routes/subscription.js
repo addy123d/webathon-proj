@@ -97,7 +97,7 @@ router.get("/",redirectLogin,(request,response)=>{
             response.redirect("/subscription/add");
         }else{
             response.render("subscription");
-        }
+        };
     })
     .catch(err=>console.log("Error :",err));
 });
