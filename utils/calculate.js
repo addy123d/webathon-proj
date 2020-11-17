@@ -14,15 +14,17 @@ const calculate = (details,price,duration)=>{
 
     const added_result = add(prices);
     if(duration === "Yearly"){
+        let difference = Number(paying_capacity/12) - added_result; 
         if(added_result > Number(paying_capacity/12)){
-            return "Alert";
+            return ["Alert",difference];
         }
-            return "Normal";
+            return ["Normal",difference];
     }else{
+        let difference = Number(paying_capacity) - added_result; 
         if(added_result > Number(paying_capacity)){
-            return "Alert";
+            return ["Alert",difference];
         }
-            return "Normal";  
+            return ["Normal",difference];  
     }
 
 

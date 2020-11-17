@@ -4,36 +4,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add OTT</title>
+
+    <link rel="icon" href="https://image.shutterstock.com/image-vector/customer-satisfaction-icon-260nw-676208119.jpg"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <title>Status</title>
 </head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .register {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/images/bg-2.jpg");
+        background-size: cover;
+        min-height: 100vh;
+    }
+
+    .container {
+        margin: 3%;
+        background: #ffffff;
+        padding: 3em 4em 3em 4em;
+    }
+
+    .container.active {
+        filter: blur(10px);
+        pointer-events: none;
+    }
+
+    .title {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .title h2 {
+        margin-bottom: 5%;
+        font-family: 'Poppins', sans-serif;
+        color: #111111;
+        border-left: 5px solid #1c1d1e;
+        line-height: .8em;
+        padding: 1px 12px;
+    }
+
+
+    .name,
+    .review,
+    .button {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 5%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nam input,
+    .revie select {
+        padding: 1em 1em 1em 2.4em;
+        border-radius: 5px;
+        outline: none;
+        background: #ffffff;
+        border: 1.5px solid #1c1d1e;
+        color: #1c1d1e;
+        font-family: 'Josefin Sans', sans-serif;
+        box-sizing: border-box;
+
+    }
+
+    .revie select {
+        margin-top: 10%;
+        margin-bottom: 5%;
+        padding: 1em 1em 1em 1em;
+        cursor: pointer;
+    }
+
+    option {
+        padding: 1em 1em 1em 1em;
+    }
+
+    .revie textarea {
+        border-radius: 0px;
+    }
+
+    .nam input {
+        border-radius: 0px;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+    }
+
+    textarea {
+        padding: 0.5em;
+        margin: 13.8295px;
+        width: 193px;
+        height: 129px;
+        resize: none;
+    }
+
+    .name .nam i {
+        position: absolute;
+        top: 28%;
+        left: 8%;
+    }
+
+    button {
+        background: #1c1d1e;
+        color: #f7f7f7;
+        padding: 1em 2em 1em 2em;
+        border-radius: 30px;
+        border: none;
+        font-family: 'Josefin Sans',
+            sans-serif;
+        text-transform: uppercase;
+        cursor: pointer;
+        outline: none;
+        margin-top: 10%;
+    }
+
+    /* Loader in button */
+    .loading-1 {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+        background: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: inherit;
+        opacity: 0;
+    }
+
+    .loading-1::before {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        border: 3px dashed #ffffff;
+        width: 30px;
+        height: 30px;
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        animation: loading1 linear infinite;
+        z-index: 5;
+    }
+
+    .loading-1::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid #ffffff;
+        width: 30px;
+        height: 30px;
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        animation: loading1 1s ease infinite;
+        z-index: 10;
+    }
+
+    .file input[type="file"] {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .file label {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: -5%;
+        padding: .5em 1.8em .5em 1.1em;
+        border: 1px dashed #000000;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Josefin Sans',
+            sans-serif;
+    }
+
+    .file i {
+        position: absolute;
+        top: 6%;
+        left: 63%;
+    }
+
+    /* Add Button */
+    /* ADD BUTTON */
+    .add {
+        position: fixed;
+        top: 5%;
+        left: 90%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
+
+    .add .add_sign {
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 50px;
+        width: 50px;
+        background: #31291d;
+        border-radius: 40px;
+        cursor: pointer;
+    }
+
+    .add_sign i {
+        position: absolute;
+        top: 20%;
+        left: 27%;
+        font-size: 1.8rem;
+        color: #ffffff;
+        transition: .3s;
+    }
+
+    .add_sign i.active {
+        transition: all .3s;
+        transform: rotate(45deg);
+    }
+
+    /* FoRM */
+
+    .form_cont {
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+
+
+    .form {
+        background: #ffffff;
+        padding: 1em 3em 1em 3em;
+        border-radius: 3px;
+    }
+
+
+    .form h2 {
+        margin-bottom: 10%;
+        padding: 1px 7px;
+        color: #31291d;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    #notetitle {
+        outline: none;
+        border: .1px solid #313131;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 10px;
+    }
+
+    .note {
+        display: flex;
+        justify-content: center;
+    }
+
+    .note input[type="text"],
+    .note input[type="date"],
+    .note select {
+        outline: none;
+        font-family: 'Poppins', sans-serif;
+        resize: none;
+        padding: .5em .5em;
+        border-radius: 0px;
+    }
+
+    .note input[type="text"],
+    .note select,
+    .note input[type="date"] {
+        margin-bottom: 10%;
+        border: .5px dashed #000000;
+    }
+
+    .form>.button {
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form>.button button {
+        margin-top: 3%;
+        padding: .6em 1em .6em 1em;
+        font-family: 'Poppins', sans-serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        background: #2b75ff;
+        color: #ffffff;
+        text-shadow: 1px 1px 1px #000000;
+        letter-spacing: 1px;
+        border-radius: 6px;
+        cursor: pointer;
+        outline: none;
+        border: none;
+    }
+
+    .button #deleteBtn {
+        font-size: .7rem;
+        background: rgb(253, 65, 65);
+    }
+
+    .button #deleteBtn:hover {
+        transition: all .3s;
+        background: rgb(151, 33, 33);
+    }
+
+    .button button:hover {
+        transition: all .3s;
+        background: #3562b6;
+    }
+
+    .user_name,
+    .price {
+        position: absolute;
+        top: 8%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+    }
+
+    .price {
+        left: 90%;
+    }
+
+    .price h2 {
+        font-size: 2.8rem;
+        font-family: 'Poppins', sans-serif;
+        color: #ffffff;
+        text-shadow: 1px 1px 2px #1c1d1e;
+    }
+
+    .user_name h2 {
+        font-size: 1.2rem;
+        font-family: 'Poppins', sans-serif;
+        color: #ffffff;
+        text-shadow: 1px 1px 2px #1c1d1e;
+    }
+
+
+    .alert {
+        display: flex;
+        justify-content: center;
+    }
+
+    .alert h2 {
+        font-family: 'Poppins', sans-serif;
+    }
+
+
+
+
+    @keyframes loading1 {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @media (max-width: 578.6px) {
+        .container {
+            padding: 1em 2em 1em 2em;
+        }
+
+        .name .nam i {
+            position: absolute;
+            top: 28%;
+            left: 3.5%;
+        }
+
+        .form h2 {
+            font-size: 1rem;
+        }
+
+        .user_name {
+            left: 25%;
+        }
+
+        .user_name h2 {
+            font-size: 1.3rem;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px #1c1d1e;
+        }
+
+        .alert h2 {
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+    }
+</style>
 
 <body>
     <%if( condition === "Alert" ){%>
-    <h2>Alert - Please don't add more Subscriptions ! Going Beyond the Paying Capacity</h2>
+    <div class="alert">
+        <h2>Alert⚠ - Please don't add more Subscriptions ! Going Beyond the Paying Capacity</h2>
+    </div>
     <%}%>
-    <form action="/subscription/add" method="POST">
+    <section class="register">
 
-        <h1>Add OTT Subscriptions</h1>
-        <input type="text" name="ottname" placeholder="OTT Name" autocomplete="off">
-        <select name="ottduration">
-            <option>Choose your duration</option>
-            <option>Monthly</option>
-            <option>Yearly</option>
-        </select>
-        <input type="date" name="ottdate">
-        <input type="text" name="ottprice" placeholder="OTT Price" autocomplete="off">
+        <div class="user_name">
+            <h2>Hello, <%=email%> 👤 !</h2>
+    </div>
 
-        <input type="text" name="ottname" placeholder="OTT Name" autocomplete="off">
-        <select name="ottduration">
-            <option>Choose your duration</option>
-            <option>Monthly</option>
-            <option>Yearly</option>
-        </select>
-        <input type="date" name="ottdate">
-        <input type="text" name="ottprice" placeholder="OTT Price" autocomplete="off">
+    <div class="price">
+        <h2>&#x20B9; <%=amount%></h2>
+    </div>
 
-        <button>Submit</button>
-    </form>
+    <!-- Form -->
+
+    <div class="form_cont">
+        <div class="form">
+            <h2>Add Subscription <i class="fa fa-plus" aria-hidden="true"></i></h2>
+            <form action="/subscription/add" method="POST">
+                <div class="note">
+                    <input type="text" id="notetitle" name="ottname" placeholder="Subscription Name" autocomplete="off">
+                </div>
+
+                <div class="note">
+                    <select name="ottduration" id="">
+                        <option hidden>Choose Duration</option>
+                        <option>Monthly</option>
+                        <option>Yearly</option>
+                    </select>
+                </div>
+
+                <div class="note">
+                    <input type="date" id="notetitle" name="ottdate" autocomplete="off">
+                </div>
+
+                <div class="note">
+                    <input type="text" id="notetitle" name="ottprice" placeholder="Subscription Price"
+                        autocomplete="off">
+                </div>
+
+                <div class="button">
+                    <button id="submitBtn">Add 📝</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </section>
 </body>
 
 </html>
