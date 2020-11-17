@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill Subscription Details</title>
+</head>
+
+<body>
+    <form action="/subscription" method="POST">
+        <input type="text" name="money" placeholder="Enter your money" autocomplete="off">
+        <select name="duration">
+            <option>Choose your duration</option>
+            <option>Monthly</option>
+            <option>Yearly</option>
+        </select>
+
+        <h1>OTT Current Subscriptions</h1>
+        <input type="text" name="ottname" placeholder="OTT Name" autocomplete="off">
+        <select name="ottduration">
+            <option>Choose your duration</option>
+            <option>Monthly</option>
+            <option>Yearly</option>
+        </select>
+        <input type="date" name="ottdate">
+        <input type="text" name="ottprice" placeholder="OTT Price" autocomplete="off">
+
+        <input type="text" name="ottname" placeholder="OTT Name" autocomplete="off">
+        <select name="ottduration">
+            <option>Choose your duration</option>
+            <option>Monthly</option>
+            <option>Yearly</option>
+        </select>
+        <input type="date" name="ottdate">
+        <input type="text" name="ottprice" placeholder="OTT Price" autocomplete="off">
+
+        <button>Submit</button>
+    </form>
+</body>
+
+</html>
